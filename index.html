@@ -1,0 +1,158 @@
+<div id=category-modal class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">เพิ่มประเภท</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="category-form" class=container onsubmit="return false">
+               <div class=row>
+                <input id=category-id name="_id" type=hidden>
+                <div class=col-4>ชื่อประเภท</div>
+                <!--input class=col-8 id=file name="file" type=file-->
+                <input class=col-8 id=category-name name="name">
+               </div>
+               <div class="row">
+                    <div class="col-12 mt-1 p-0">
+                        <button type="submit" class="btn btn-primary float-right" onclick=category_submit()>บันทึก</button>
+                        <button type="button" id="category-del" class="btn btn-danger float-left" onclick=category_del()>ลบ</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+<div id=product-modal class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">เพิ่มเมนู</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="product-form" class=container onsubmit="return false">
+               <div class=row>
+                <input id=product-id name="_id" type=hidden>
+                <input id=product-category_id name="category_id" type=hidden>
+                <div class=col-4>รูปประกอบ</div>
+                <input class=col-8 id=file name="file" type=file>
+                <div class=col-4>ชื่อ</div>
+                <input class=col-8 id=product-name name="name">
+                <div class=col-4>ราคา</div>
+                <input class=col-8 id=product-price name="price" type="number">
+               </div>
+            <div class="row">
+                <div class="col-12 mt-1 p-0">
+                    <button type="submit" class="btn btn-primary float-right" onclick=product_submit()>บันทึก</button>
+                    <button type="button" id="product-del" class="btn btn-danger float-left" onclick=product_del()>ลบ</button>
+                </div>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div id=shop-modal class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">เพิ่มผู้ให้บริการจัดส่ง</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="shop-form" class=container onsubmit="return false">
+               <div class=row>
+                <input id=shop-id name="_id" type=hidden>
+                <div class=col-4>รูปประกอบ</div>
+                <input class=col-8 id=file name="file" type=file>
+                <div class=col-4>ชื่อ</div>
+                <input class=col-8 id=shop-name name="name">
+               </div>
+            </form>
+            <div class="row">
+                <div class="col-12 mt-1 p-0">
+                    <button type="submit" class="btn btn-primary float-right" onclick=shop_submit()>บันทึก</button>
+                    <button type="button" id="shop-del" class="btn btn-danger float-left" onclick=shop_del()>ลบ</button>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<form id=order-form>
+<div id=alldata>
+</div>
+<div class="border border-info bg-light rounded fixed-bottom">
+    <div>
+    <div class="row mx-1"><span class=col-4>ราคารวม</span><input class="ttp mx-1 col-4"><span class="col-2 text-right">บาท</span></div>
+    <div class="row mx-1 bg-info"><span class=col-4>แก้ไข</span><input name="total" class="ttp mx-1 col-4"><span class="col-2 text-right">บาท</span></div>
+    <div class="row mx-1 bg-white"><div class=col-4>วิธีชำระ</div>
+        <div class="col-4 p-0"><input class="payment mx-1" name=payment type=radio value=cash checked>เงินสด</div>
+        <div class="col-3 p-0"><input class="payment mx-1" name=payment type=radio value=transfer>โอน</div>
+    </div>
+    <div class="row mx-2 px-2">
+        เลือกผู้ให้บริการจัดส่ง<br>
+        <div id=allshop class=w-100 style="overflow:auto">
+        </div>
+    </div>
+    </div>
+    <div class="btn btn-primary w-100" onclick="order_submit()">ส่งข้อมูล</div>
+</div>
+<div class="card rounded product txtlarge text-center align-middle p-3 mt-2 w-100 setup" onclick="category_open()">
+    <div class=col-12>
+        เพิ่มหมวดหมู่
+        <span class="rounded-circle bg-primary bi-plus px-1" style="font-size:24px;color:#fff;"></span>
+    </div>
+</div>
+</form>
+<style>
+.product{
+    width:150px;
+    height:150px;
+    float:right;
+}
+.shop{
+    width:50px;
+    height:50px;
+    background-size: 50px 50px !important;
+}
+.txtlarge{
+    font-size:150%
+}
+.prod-img {
+  width: 135px;
+  height: 80px;
+  object-fit: cover;
+}
+.pointer{
+    cursor: pointer;
+}
+.btn{
+    cursor: pointer;
+}
+.shop-edit{
+    font-size:11px;
+    color:white;
+    float:right;
+}
+.cat-edit{
+    font-size:11px;
+    color:white;
+    float:left;
+}
+.prod-edit{
+    font-size:11px;
+    color:white;
+    float:right;
+}
+</style>
